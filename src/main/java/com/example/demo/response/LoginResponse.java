@@ -1,5 +1,7 @@
 package com.example.demo.response;
 
+import com.example.demo.enumpack.UserType;
+
 import lombok.Data;
 
 @Data
@@ -9,7 +11,7 @@ public class LoginResponse {
 	
 	private String name;
 	
-	private String userType;
+	private UserType userType;
 	
 	
 	

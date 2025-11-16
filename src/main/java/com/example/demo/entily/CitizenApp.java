@@ -2,45 +2,42 @@ package com.example.demo.entily;
 
 import java.time.LocalDate;
 
-import com.example.demo.enumpack.UserType;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.Table;
 import lombok.Data;
 
 @Entity
-@Table(name = "User_Infoo")
 @Data
-public class UserInfoEntity {
-	
+public class CitizenApp {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer userid;
+	private int caseNum;
 	
 	private String name;
 	
-	private String email;
+	private String emailId;
 	
-	private String pwd;
+	private Long phno;
 	
 	private String gender;
 	
-	private LocalDate dob;
+	private LocalDate citizenDob;
 	
-	private Long phNo;
+	private Long ssnNumber;
 	
-	private Long ssn;
+	@CreationTimestamp
+	private LocalDate createbDate;
 	
-	private String userName;
+	@UpdateTimestamp
+	private LocalDate updateDate;
 	
-	private boolean pwdChanged;
-	
-	private UserType userType;
-	
+	private Integer createdBy;
 	
 	
 	

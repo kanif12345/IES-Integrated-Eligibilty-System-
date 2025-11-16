@@ -36,6 +36,18 @@ public class UserServiceImpl implements userService {
 	public ApiResponse saveUser(SingUpRequest request) 
 	{
 	    UserInfoEntity entity = new UserInfoEntity();
+	   Optional<UserInfoEntity> byEmailId = infoRepo.findByEmail(request.getEmail());
+	    if(byEmailId.isPresent())
+	    	
+	    {
+	    	 return ApiResponse.builder()
+	 	            .message("Email Id Is AllReady Reg")
+	 	            .status(false)
+	 	            .build();
+	    	
+	    }
+	    else
+	    {
 
 	    // Set all simple fields
 	    entity.setName(request.getName());
@@ -46,6 +58,7 @@ public class UserServiceImpl implements userService {
 	    entity.setSsn(request.getSsn());
 	    entity.setUserName(request.getUserName());
 	    entity.setUserType(request.getUserType());
+	  
 
 	    // Generate temp password
 	    String tempPwd = generateTempPwd();
@@ -74,6 +87,9 @@ public class UserServiceImpl implements userService {
 	            .message("User Saved")
 	            .status(true)
 	            .build();
+	    }
+	   
+	   
 	}
 
 
@@ -174,21 +190,23 @@ public class UserServiceImpl implements userService {
 	@Override
 	public ApiResponse recoverPwd(String emial)
 	{
-		UserInfoEntity byEmail = infoRepo.findByEmail(emial);
+		 Optional<UserInfoEntity> byEmail = infoRepo.findByEmail(emial);
+		UserInfoEntity userInfoEntity = byEmail.get();
 		
-		if(byEmail==null)
+		String email = userInfoEntity.getEmail();
+		if(email==null)
 		{
 			return ApiResponse.builder().message("Given Email Id not found..").status(false).build();
 		}
 		
 		String subject="IES RecoverPwd";
 		
-		String body="Your Password"+byEmail.getPwd();
+		String body="Your Password"+userInfoEntity.getEmail();
 		
 		
 		emailUtil.sendEmail(emial, subject, body);
 		
-		return ApiResponse.builder().message("Pwd send to your Email..").status(false).build();
+		return ApiResponse.builder().message("Pwd send to your Email..").status(true).build();
 	}
 	
 	public String generateTempPwd()

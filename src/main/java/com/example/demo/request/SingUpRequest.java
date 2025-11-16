@@ -2,6 +2,8 @@ package com.example.demo.request;
 
 import java.time.LocalDate;
 
+import com.example.demo.enumpack.UserType;
+
 import lombok.Data;
 
 
@@ -29,5 +31,5 @@ public class SingUpRequest {
 
     private boolean pwdChanged;
 
-    private String userType;
+    private UserType userType;
 }

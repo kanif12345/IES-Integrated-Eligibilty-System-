@@ -1,6 +1,8 @@
 package com.example.demo.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,36 +28,36 @@ public class UserController {
 	@Autowired
 	private UserServiceImpl serviceImpl;
 
-
 	@PostMapping("/save")
-	public ResponseEntity<ApiResponse>userRespose (@RequestBody SingUpRequest application)
-	{
-		System.out.println(application.getEmail());
-		
-		ApiResponse saveUser = serviceImpl.saveUser(application);
-		
-		return ResponseEntity.ok(saveUser);
-		
+	public ResponseEntity<ApiResponse> userResponse(@RequestBody SingUpRequest application) {
 
+	    ApiResponse saveUser = serviceImpl.saveUser(application);
+
+	    if (saveUser != null) {
+	        return ResponseEntity.ok(saveUser);  
+	    } else {
+	        return new ResponseEntity<>(saveUser, HttpStatus.INTERNAL_SERVER_ERROR); 
+	    }
 	}
+
 	
 	@PostMapping("/login")
 	public ResponseEntity<LoginResponse> userLogin(@RequestBody loginRequest loginRequest)
 	{
 		LoginResponse userLogin = serviceImpl.userLogin(loginRequest);
 		
-		return ResponseEntity.ok(userLogin);
-		
+		return new ResponseEntity<>(userLogin,HttpStatus.OK);
 		
 	}
 	
 	
 	@GetMapping("/recover-pwd")
-	public ResponseEntity<ApiResponse> recoverPwd(@PathVariable String pwd)
+	public ResponseEntity<ApiResponse> recoverPwd(@PathVariable String email)
 	{
-		ApiResponse recoverPwd = serviceImpl.recoverPwd(pwd);
+		ApiResponse recoverPwd = serviceImpl.recoverPwd(email);
 		
-		return ResponseEntity.ok(recoverPwd);
+		return new ResponseEntity<>( recoverPwd, recoverPwd.isStatus()?HttpStatus.CREATED :HttpStatus.BAD_GATEWAY);
+
 		
 		
 	} 
