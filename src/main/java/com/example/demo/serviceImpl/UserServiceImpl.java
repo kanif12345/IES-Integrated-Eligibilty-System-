@@ -59,6 +59,7 @@ public class UserServiceImpl implements userService {
 	    entity.setUserName(request.getUserName());
 	    entity.setUserType(request.getUserType());
 	  
+	    
 
 	    // Generate temp password
 	    String tempPwd = generateTempPwd();

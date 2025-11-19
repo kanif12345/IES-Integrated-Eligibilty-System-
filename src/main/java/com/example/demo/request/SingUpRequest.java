@@ -4,6 +4,8 @@ import java.time.LocalDate;
 
 import com.example.demo.enumpack.UserType;
 
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import lombok.Data;
 
 
@@ -31,5 +33,6 @@ public class SingUpRequest {
 
     private boolean pwdChanged;
 
+    @Enumerated(EnumType.STRING)
     private UserType userType;
 }

@@ -13,37 +13,23 @@ import lombok.Data;
 
 @Entity
 @Data
-public class CitizenApp {
+public class PlanMasterEntity {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int caseNum;
+	private int id;
 	
-	private String name;
+	private String ActiveSw;
 	
-	private String emailId;
-	
-	private Long phno;
-	
-	private String gender;
-	
-	private LocalDate citizenDob;
-	
-	private Long ssnNumber;
+	private String planCategory;
 	
 	@CreationTimestamp
-	private LocalDate createbDate;
+	private LocalDate planStartDate;
 	
 	@UpdateTimestamp
-	private LocalDate updateDate;
+	private LocalDate planEndDate;
 	
-	private Integer createdBy;
-	
-	private Integer plansId;
-	
-	
-	
-	
-	
+	private String planName;
+
 
 }
